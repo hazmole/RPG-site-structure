@@ -449,6 +449,9 @@ const BookUtil = {
 			if(!data) throw new Error(`Cannot load data`);
 
 			// Handle Reference Index
+			if(BookUtil.bookIndex[0] && BookUtil.bookIndex[0].id!=data.reference.id){
+				BookUtil.contentObj.html("");
+			}
 			if(BookUtil.contentObj.html() == ""){
 				let tmpString = "";
 				BookUtil.bookIndex = [data.reference];
@@ -470,7 +473,7 @@ const BookUtil = {
 			$(`.book-head-header`).html(cleanName(fromIndex.translate_name? fromIndex.translate_name: fromIndex.name));
 			BookUtil.showBookContent(data.data, fromIndex, bookId, hashParts);
 			BookUtil.initLinkGrabbers();
-			//NavBar.highlightCurrentPage();
+			NavBar.highlightCurrentPage();
 		}
 
 		const [bookIdRaw, ...hashParts] = window.location.hash.slice(1).split(HASH_PART_SEP);
